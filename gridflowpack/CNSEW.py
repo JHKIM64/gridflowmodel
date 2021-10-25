@@ -13,10 +13,10 @@ def toDF(xr,str) :
 
 def df_CNSEW(lat,lon) :
     C = xr_near_seoul.sel(latitude=lat,longitude=lon)
-    N = xr_near_seoul.sel(latitude=lat + 0.1,longitude=lon )
-    S = xr_near_seoul.sel(latitude=lat - 0.1, longitude=lon)
-    E = xr_near_seoul.sel(latitude=lat, longitude=lon + 0.1)
-    W = xr_near_seoul.sel(latitude=lat, longitude=lon - 0.1)
+    N = xr_near_seoul.sel(latitude=round(lat + 0.1,1),longitude=lon )
+    S = xr_near_seoul.sel(latitude=round(lat - 0.1,1), longitude=lon)
+    E = xr_near_seoul.sel(latitude=lat, longitude=round(lon + 0.,1))
+    W = xr_near_seoul.sel(latitude=lat, longitude=round(lon - 0.1,1))
     df_C = toDF(C,'C')
     df_N = toDF(N,'N')
     df_S = toDF(S,'S')
@@ -25,10 +25,10 @@ def df_CNSEW(lat,lon) :
 
     df_bd = pd.concat([df_C,df_N,df_S,df_E,df_W],axis=1).iloc[2:]
 
-    Nt_CPM25 = df_bd.CPM25.shift(-1)
-
-    df_bd['Nt_CPM25'] = Nt_CPM25
-    df_bd = df_bd.iloc[:-1]
+    # Nt_CPM25 = df_bd.CPM25.shift(-1)
+    #
+    # df_bd['Nt_CPM25'] = Nt_CPM25
+    # df_bd = df_bd.iloc[:-1]
 
     return df_bd
 
