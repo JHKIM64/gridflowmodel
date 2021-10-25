@@ -1,19 +1,20 @@
 ## near seoul
-## 0.1*0.1 grid 16개
-## boundary condition grid 16
+## 0.1*0.1 grid 8개
+## boundary condition grid 11개
 
 # method
-## 16개 grid별 모델학습 이후 앙상블학습 (bagging) 을 통해 모델 학습
-## 시계열 데이터를 t -> t+1 데이터의 집합으로 바꿔야함
+## 8개 grid별 모델학습(동서남북중앙 값 시계열 변화 학습) 이후 앙상블학습 (bagging)을 통해 모델 학습
+## data overfitting예방
+
+## model grid target location
+## (37.6,126.9),(37.6,127.0),(37.5,126.9),(37.5,127.0),(37.5,127.1),(37.4,126.9),(37.4,127.0),(37.4,127.1)
 
 import pandas as pd
 import dask.dataframe as dd
 import math
 import tensorflow as tf
+import xarray as xr
 from tensorflow import keras
-
 import numpy as np
-import gridflowpack.nearseoulgrid as nsgrid
-
-boundary, ingrid, allData = nsgrid.gridData()
+import gridflowpack.CNSEW
 

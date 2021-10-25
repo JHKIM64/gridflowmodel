@@ -1,3 +1,5 @@
+import datetime
+
 import xarray as xr
 import numpy as np
 import pandas as pd
@@ -18,7 +20,7 @@ def to_dic(array) :
         dic = np.append(dic,{'latitude':i[0],'longitude':i[1]})
     return dic
 
-def to_xarray(dic, xr) :
+def from_xarray(dic, xr) :
     ns_aq_data = pd.DataFrame()
     for loc in dic :
         data = xr.sel(loc).expand_dims(["latitude","longitude"]).to_dataframe()
@@ -27,12 +29,12 @@ def to_xarray(dic, xr) :
     return ns_aq_data
 
 def gridData() :
-    ae_bd = to_xarray(to_dic(boundary),aerosol)
+    ae_bd = from_xarray(to_dic(boundary), aerosol)
     # print("ad_bd",ae_bd)
-    ae_ig = to_xarray(to_dic(inner_grid),aerosol)
+    ae_ig = from_xarray(to_dic(inner_grid), aerosol)
     # print("ad_ig", ae_ig)
-    wt_bd = reset_Loc(to_xarray(to_dic(boundary),weather))
-    wt_ig = reset_Loc(to_xarray(to_dic(inner_grid), weather))
+    wt_bd = reset_Loc(from_xarray(to_dic(boundary), weather))
+    wt_ig = reset_Loc(from_xarray(to_dic(inner_grid), weather))
 
     df_bd = pd.merge(ae_bd, wt_bd, left_index=True, right_index=True, how='left').sort_index()
     df_ig = pd.merge(ae_ig, wt_ig, left_index=True, right_index=True, how='left').sort_index()
@@ -47,4 +49,16 @@ def reset_Loc(df) :
     df = df.set_index(['time','latitude','longitude'])
     return df
 
-gridData()
+def to_xarray() :
+    _,_,data = gridData()
+    data.reset_index(inplace=True)
+    mask1 = (data.time < datetime.datetime(year=2021, month=1, day=1, hour=0))
+    data = data.loc[mask1,:]
+    data.set_index(['time','latitude','longitude'],inplace=True)
+    data.sort_index(inplace=True)
+
+    xr_data = data.to_xarray()
+    # print(data)
+    return xr_data
+
+# to_xarray()
