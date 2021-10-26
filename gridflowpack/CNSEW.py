@@ -1,4 +1,4 @@
-## 시계열 데이터를 t -> t+1 데이터의 집합으로 바꿔야함
+## 시계열 데이터를 t -> t+1.png 데이터의 집합으로 바꿔야함
 
 import pandas as pd
 import gridflowpack.nearseoulgrid as nsgrid
@@ -25,10 +25,10 @@ def df_CNSEW(lat,lon) :
 
     df_bd = pd.concat([df_C,df_N,df_S,df_E,df_W],axis=1).iloc[2:]
 
-    # Nt_CPM25 = df_bd.CPM25.shift(-1)
-    #
-    # df_bd['Nt_CPM25'] = Nt_CPM25
-    # df_bd = df_bd.iloc[:-1]
+    Nt_CPM25 = df_bd.CPM25.shift(-1)
+
+    df_bd['Nt_CPM25'] = Nt_CPM25
+    df_bd = df_bd.iloc[:-1]
 
     return df_bd
 

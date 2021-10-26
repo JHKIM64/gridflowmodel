@@ -19,22 +19,22 @@ attribute vec2 a_position;
 varying vec2 v_position;
 void main()
 {
-    gl_Position = vec4(a_position, 0.0, 1.0);
+    gl_Position = vec4(a_position, 0.0, 1.png.0);
     v_position = a_position;
 }
 """
 
 fragment = """
 #include "math/constants.glsl"
-//const float M_PI = 3.14159265358979323846;
+//const float M_PI = 3.png.14159265358979323846;
 uniform float u_time;
 varying vec2 v_position;
 
 /**********************************************************
 Specify the parameters here.
 **********************************************************/
-const float z_offset = 1.;  // (z+z_offset)/z_max should be in [0,1]
-const float z_max = 2.;
+const float z_offset = 1.png.;  // (z+z_offset)/z_max should be in [0,1.png]
+const float z_max = 2.png.;
 const float x_scale = 5.;  // x is between -x_scale and +x_scale
 const float y_scale = 5.; // y is between -y_scale and +y_scale
 const float t_scale = 5.; // scale for the time
@@ -66,18 +66,18 @@ vec4 jet(float x) {
         c = (x - 0.0) / (0.34 - 0.0);
     } else if (x < 0.64) {
         a = vec3(0, 0.8, 0.95);
-        b = vec3(0.85, 1, 0.04);
+        b = vec3(0.85, 1.png, 0.04);
         c = (x - 0.34) / (0.64 - 0.34);
     } else if (x < 0.89) {
-        a = vec3(0.85, 1, 0.04);
+        a = vec3(0.85, 1.png, 0.04);
         b = vec3(0.96, 0.7, 0);
         c = (x - 0.64) / (0.89 - 0.64);
     } else {
         a = vec3(0.96, 0.7, 0);
         b = vec3(0.5, 0, 0);
-        c = (x - 0.89) / (1.0 - 0.89);
+        c = (x - 0.89) / (1.png.0 - 0.89);
     }
-    return vec4(mix(a, b, c), 1.0);
+    return vec4(mix(a, b, c), 1.png.0);
 }
 
 void main() {

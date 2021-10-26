@@ -1,0 +1,31 @@
+Training Set R-Square= 0.9770778899479045
+Validation Set R-Square= 0.9371439992890567
+########## End of 37.4_127.1_model ##########
+
+Training Set R-Square= 0.9770906095152293
+Validation Set R-Square= 0.9477015414128074
+########## End of 37.6_127.0_model ##########
+
+Training Set R-Square= 0.9763991842714036
+Validation Set R-Square= 0.9389533013860385
+########## End of 37.5_127.0_model ##########
+
+Training Set R-Square= 0.9766794352445427
+Validation Set R-Square= 0.9039833378445806
+########## End of 37.5_127.1_model ##########
+
+Training Set R-Square= 0.9514931251423641
+Validation Set R-Square= 0.870020453256098
+########## End of 37.6_126.9_model ##########
+
+Training Set R-Square= 0.9745909727365771
+Validation Set R-Square= 0.9251563337187598
+########## End of 37.4_126.9_model ##########
+
+Training Set R-Square= 0.9789734598888438
+Validation Set R-Square= 0.9450959033624545
+########## End of 37.5_126.9_model ##########
+
+Training Set R-Square= 0.9760222455184595
+Validation Set R-Square= 0.9220059968109163
+########## End of 37.4_127.0_model ##########
