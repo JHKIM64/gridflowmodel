@@ -26,8 +26,8 @@ V = np.array(weather.v10.isel(time=0).values)
 wX, wY = np.meshgrid(wlon,wlat)
 C = np.array(aerosol.PM25.isel(time=0).values)
 
-fig = plt.figure(figsize =(8,8))
-box = [126, 127.5, 36.5, 38]
+fig = plt.figure(figsize =(9,6))
+box = [112, 114, 28, 28.5]
 scale = '50m'
 ax = plt.axes(projection=ccrs.PlateCarree())
 ax.set_extent(box,crs=ccrs.PlateCarree())
@@ -41,6 +41,7 @@ c = ax.pcolormesh(X,Y,C,cmap="gist_ncar")
 Q=ax.quiver(wX,wY,U,V,scale=40, scale_units='inches')
 
 start = timer()
+print(aerosol.sel(latitude=38.8, longitude=115.4))
 
 def update_colormesh(t):
     U = np.array(weather.u10.isel(time=t).values)
@@ -53,8 +54,8 @@ def update_colormesh(t):
     print(t)
     return Q,c,
 
-anim = amp.FuncAnimation(fig, update_colormesh, frames=4320,interval=300)
-anim.save('test.gif')
+anim = amp.FuncAnimation(fig, update_colormesh, frames=20,interval=300)
+anim.save('china.gif')
 print(timer()-start)
 plt.show()
 # def windplot(t) :

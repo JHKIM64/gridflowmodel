@@ -69,6 +69,7 @@ def ensemble(lat,lon) :
         # averagemodel.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
         # averagemodel.fit(x_train,y_train, epochs=100, batch_size=5, verbose=1)
         plot_model(averagemodel, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+        averagemodel.save("onegridensemble")
 
     return averagemodel, test_df
 
@@ -83,7 +84,7 @@ def predict_ensemble(esbmodel, test_df, lat, lon) :
     np.savetxt("testresults.csv", PredTestSet, delimiter=",")
 
     TestResults = np.genfromtxt("testresults.csv", delimiter=",")
-    plt.figure(figsize=(11,8))
+    plt.figure(figsize=(20,15))
     plt.plot(test_y.reset_index(drop=True), 'r', label='Obsv')
     plt.plot(TestResults, 'b', label='Pred')
     plt.title('Test Set at '+str(lat)+','+str(lon))
@@ -104,7 +105,6 @@ def run(lat,lon,step) :
 
     predict_ensemble(esbmodel, test_df,lat,lon)
 
-    print(timestep_df)
     timestep_x = timestep_df.drop(columns='Nt_CPM25', axis=1)
     timestep_y = timestep_df.Nt_CPM25
 
@@ -112,13 +112,11 @@ def run(lat,lon,step) :
     for i in range(0,timestep-1) :
         pred_next = esbmodel.predict(timestep_x[i:i+1])
         df.append([timestep_y.iloc[i],float(pred_next)])
-
         timestep_x.iloc[i+1].CPM25 = pred_next
 
     df = pd.DataFrame(df)
     df.columns = ["Obsv","Pred"]
-    print(df)
-    plt.figure(figsize=(11, 8))
+    plt.figure(figsize=(20, 15))
     plt.plot(df.Obsv, 'r',label='Obsv')
     plt.plot(df.Pred, 'b',label='Pred')
     plt.title(str(timestep)+' hours Prediction at '+str(lat)+','+str(lon))
@@ -126,9 +124,9 @@ def run(lat,lon,step) :
     PredR2Value = r2_score(df.Obsv, df.Pred)
     font = {'color': 'black', 'size': 14}
     plt.legend()
-    plt.text(0,-2,"Prediction R-Square=" + str(round(PredR2Value,4)), fontdict=font)
+    plt.text(0,-1,"Prediction R-Square=" + str(round(PredR2Value,4)), fontdict=font)
     plt.savefig(str(timestep)+'h_Pred_'+str(lat)+'_'+str(lon)+'.png')
     plt.show()
 
-for lat, lon in location :
-    run(lat,lon,72)
+# for lat, lon in location :
+#     run(lat,lon,168)

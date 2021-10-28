@@ -3,7 +3,7 @@
 import pandas as pd
 import gridflowpack.nearseoulgrid as nsgrid
 import xarray
-xr_near_seoul = nsgrid.to_xarray()
+xr_near_seoul = nsgrid.toxarray()
 
 def toDF(xr,str) :
     df = xr.to_dataframe().drop(columns=['latitude','longitude'])
@@ -33,3 +33,4 @@ def df_CNSEW(lat,lon) :
     return df_bd
 
 # df_CNSEW(37.5,127.0)
+# china 117.2, 31.8 // 28.2, 112.9
