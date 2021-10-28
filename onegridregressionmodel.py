@@ -14,6 +14,7 @@ import gridflowpack.CNSEW as CNSEW
 from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import r2_score
+from keras.utils.vis_utils import plot_model
 
 def onegridmodel(lat,lon):
     ### load one grid dataframe to this function
@@ -77,6 +78,7 @@ def onegridmodel(lat,lon):
         np.savetxt("valresults.csv", PredValSet, delimiter=",")
 
         ### save model for next ensemble model
+        plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
         model.save(str(lat) + "_" + str(lon) + "_model")
 
     ### Plot actual vs predition for training set
@@ -106,3 +108,4 @@ def onegridmodel(lat,lon):
 
     return model
 
+onegridmodel(37.4,127.1)
