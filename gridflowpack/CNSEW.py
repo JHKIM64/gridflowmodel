@@ -29,7 +29,6 @@ def df_CNSEW(lat,lon) :
 
     df_bd['Nt_CPM25'] = Nt_CPM25
     df_bd = df_bd.iloc[:-1]
-    print(df_bd)
     return df_bd
 
 # df_CNSEW(37.5,127.0)

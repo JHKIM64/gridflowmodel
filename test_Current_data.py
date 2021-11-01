@@ -17,7 +17,7 @@ def regularization(df) :
 
 model = keras.models.load_model("onegridensemble")
 
-def run(lat,lon,step, df) :
+def run(lat,lon,step,df) :
     esbmodel, test_df = model, regularization(df)
     n = len(test_df)
     timestep = step
@@ -41,7 +41,6 @@ def run(lat,lon,step, df) :
     plt.plot(df.Obsv, 'r',label='Obsv')
     plt.plot(df.Pred, 'b',label='Pred')
     plt.title(str(timestep)+' hours Prediction at '+str(lat)+','+str(lon))
-    print(timestep)
     plt.xlabel('timestep')
     PredR2Value = r2_score(df.Obsv, df.Pred)
     font = {'color': 'black', 'size': 14}
@@ -53,4 +52,5 @@ def run(lat,lon,step, df) :
 for lat,lon in location :
     df = CNSEW.df_CNSEW(lat,lon)
     df.dropna(axis=0, inplace=True)
-    run(lat, lon, 720, df)
+    print("#################################################")
+    run(lat, lon, 24, df)
