@@ -6,10 +6,7 @@ import pandas as pd
 from sklearn.metrics import r2_score
 
 # china 117.2, 31.8 // 28.2, 112.9
-df_ch1 = CNSEW.df_CNSEW(31.8, 117.2)
-df_ch1.dropna(axis=0, inplace=True)
-df_ch2 = CNSEW.df_CNSEW(28.2, 112.9)
-df_ch2.dropna(axis=0, inplace=True)
+location ={(37.6,126.9),(37.6,127.0),(37.5,126.9),(37.5,127.0),(37.5,127.1),(37.4,126.9),(37.4,127.0),(37.4,127.1)}
 
 def regularization(df) :
     train_mean = df.mean()
@@ -44,6 +41,7 @@ def run(lat,lon,step, df) :
     plt.plot(df.Obsv, 'r',label='Obsv')
     plt.plot(df.Pred, 'b',label='Pred')
     plt.title(str(timestep)+' hours Prediction at '+str(lat)+','+str(lon))
+    print(timestep)
     plt.xlabel('timestep')
     PredR2Value = r2_score(df.Obsv, df.Pred)
     font = {'color': 'black', 'size': 14}
@@ -52,5 +50,7 @@ def run(lat,lon,step, df) :
     plt.savefig(str(timestep)+'h_Pred_'+str(lat)+'_'+str(lon)+'.png')
     plt.show()
 
-run(28.2, 112.9, 168, df_ch2)
-run(31.8, 117.2, 168, df_ch1)
+for lat,lon in location :
+    df = CNSEW.df_CNSEW(lat,lon)
+    df.dropna(axis=0, inplace=True)
+    run(lat, lon, 720, df)

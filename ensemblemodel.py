@@ -128,5 +128,5 @@ def run(lat,lon,step) :
     plt.savefig(str(timestep)+'h_Pred_'+str(lat)+'_'+str(lon)+'.png')
     plt.show()
 
-# for lat, lon in location :
-#     run(lat,lon,168)
+for lat, lon in location :
+    run(lat,lon,168)

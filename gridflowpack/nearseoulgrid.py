@@ -6,9 +6,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
-aerosol = xr.open_dataset("/home/intern01/jhk/Observation/EA_AQ_1920.nc")
-weather = xr.open_dataset("/home/intern01/jhk/ECMWF_Land/ECMWR_EA_CLCOND_1920.nc")
-print(weather)
+aerosol = xr.open_dataset("/home/intern01/jhk/Observation/EA_AQ_21_0104.nc")
+weather = xr.open_dataset("/home/intern01/jhk/ECMWF_Land/ECMWR_EA_CLCOND_21_0104.nc")
+
 ##boundary grid - outside of inner grid(+모양으로 둘러쌓음)
 boundary = [(37.7,126.9),(37.7,127.0),(37.6,127.1),(37.5,127.2),(37.4,127.2),(37.3,127.1),(37.3,127.0),(37.3,126.9),(37.4,126.8),(37.5,126.8),(37.6,126.8)]
 #boundary = [(31.7,117.2),(31.9,117.2),(31.8,117.1),(31.8,117.3), (28.1, 112.9), (28.3, 112.9), (28.2, 112.8), (28.2, 113.0)]
@@ -24,7 +24,6 @@ def to_dic(array) :
 def from_xarray(dic, xr) :
     ns_aq_data = pd.DataFrame()
     for loc in dic :
-
         data = xr.sel(loc).expand_dims(["latitude","longitude"]).to_dataframe()
         ns_aq_data = pd.concat([ns_aq_data,data]).sort_index()
 
@@ -54,11 +53,10 @@ def reset_Loc(df) :
 def toxarray() :
     _,_,data = gridData()
     data.reset_index(inplace=True)
-    mask1 = (data.time < datetime.datetime(year=2021, month=1, day=1, hour=0))
+    mask1 = (data.time < datetime.datetime(year=2021, month=5, day=1, hour=0))
     data = data.loc[mask1,:]
     data.set_index(['time','latitude','longitude'],inplace=True)
     data.sort_index(inplace=True)
-
     xr_data = data.to_xarray()
     # print(data)
     return xr_data
